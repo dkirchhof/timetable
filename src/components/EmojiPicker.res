@@ -1,5 +1,5 @@
 let backdrop = Emotion.css`
-  position: absolute;
+  position: fixed;
   inset: 0;
 
   display: flex;
@@ -23,6 +23,8 @@ let container = Emotion.css`
   > li > button {
     background: none;
     border: none;
+
+    font-size: 1.5rem;
   }
 `
 
@@ -31,12 +33,12 @@ let make = () =>
   Voby.Observable.bind(State.emojiPicker, bandId =>
     switch bandId {
     | Some(bandId) =>
-      <div class=backdrop>
+      <div class=backdrop onClick={_ => State.closeEmojiPicker()}>
         <ul class=container>
           {Emoji.all
           ->Array.map(emoji =>
             <li>
-              <button>
+              <button onClick={_ => State.setEmoji(bandId, emoji)}>
                 <EmojiRenderer emoji />
               </button>
             </li>

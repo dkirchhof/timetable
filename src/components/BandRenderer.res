@@ -27,6 +27,10 @@ let container = Emotion.css`
   }
 `
 
+let filteredOut = Emotion.css`
+  opacity: 0.25;
+`
+
 let text = Emotion.css`
   display: flex;
   flex-direction: column;
@@ -46,31 +50,44 @@ let emojiContainer = Emotion.css`
   justify-content: center;
 
   border-left: 1px solid hsl(from var(--accent-color) h s calc(l * 0.8));
+
+  font-size: 1.5rem;
 `
 
 let make = props => {
   let timeStr = [Time.toString(props.band.start), Time.toString(props.band.end)]->Array.join(" - ")
 
-  let style = Obj.magic(
-    `--start: ${Float.toString(props.band.start)}; --end: ${Float.toString(props.band.end)}`,
-  )
+  Voby.Observable.bind2(State.data, State.emojiFilter, (data, filter) => {
+    let emoji = data->Data.get(props.band.id)
 
-  <li class=container style>
-    <button popoverTarget={props.band.id} onClick={_ => State.showEmojiPicker(props.band.id)}>
-      <div class=text>
-        <div class=time> {Voby.JSX.string(timeStr)} </div>
-        <div> {Voby.JSX.string(props.band.name)} </div>
-      </div>
-      <div class=emojiContainer>
-        {Voby.Observable.bind(State.data, data => {
-          let emoji = data->Data.get(props.band.id)
+    let selected = switch emoji {
+    | Some(emoji) => filter->EmojiFilter.getEmoji(emoji)
+    | None => true
+    }
 
-          switch emoji {
-          | Some(emoji) => <EmojiRenderer emoji />
-          | None => Voby.JSX.null
-          }
-        })}
-      </div>
-    </button>
-  </li>
+    let class = `${container} ${selected ? "" : filteredOut}`
+
+    let style = Obj.magic(
+      ` --start: ${Float.toString(props.band.start)}; --end: ${Float.toString(props.band.end)};`
+    )
+
+    <li class style>
+      <button popoverTarget={props.band.id} onClick={_ => State.showEmojiPicker(props.band.id)}>
+        <div class=text>
+          <div class=time> {Voby.JSX.string(timeStr)} </div>
+          <div> {Voby.JSX.string(props.band.name)} </div>
+        </div>
+        <div class=emojiContainer>
+          {Voby.Observable.bind(State.data, data => {
+            let emoji = data->Data.get(props.band.id)
+
+            switch emoji {
+            | Some(emoji) => <EmojiRenderer emoji />
+            | None => Voby.JSX.null
+            }
+          })}
+        </div>
+      </button>
+    </li>
+  })
 }

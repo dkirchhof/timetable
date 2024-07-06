@@ -10,6 +10,8 @@ let container = Emotion.css`
 let stages = Emotion.css`
   display: grid;
   grid-auto-flow: column;
+
+  overflow-x: auto;
 `
 
 let list = Emotion.css`

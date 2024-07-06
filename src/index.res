@@ -3,6 +3,7 @@ module App = {
   let make = () => {
     <>
       <DaySelector />
+      <EmojiFilterRenderer />
       <DayRenderer />
       <EmojiPicker />
     </>
@@ -12,7 +13,8 @@ module App = {
 Emotion.injectGlobal`
   #app {
     --accent-color: #ffb000;
-    --border-color: lightgray;
+    --border-color: #eeeeee;
+    --select-color: #e1e1e1;
 
     --cell-height: 5rem;
 

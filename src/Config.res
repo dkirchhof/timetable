@@ -16,27 +16,35 @@ let days: array<Day.t> = [
       },
       {
         name: "Medusa",
-        bands: [
-          {id: "3", name: "Blabla", start: t("16:45"), end: t("18:00")},
-        ],
-      },
-      {
-        name: "Hardbowl",
-        bands: [],
-      },
-      {
-        name: "Backyard",
-        bands: [],
+        bands: [{id: "3", name: "Blabla", start: t("16:45"), end: t("18:00")}],
       },
     ],
   },
   {
     name: "Samstag",
-    stages: [],
+    stages: [
+      {
+        name: "Mad Max",
+        bands: [],
+      },
+      {
+        name: "Medusa",
+        bands: [],
+      },
+    ],
   },
   {
     name: "Sonntag",
-    stages: [],
+    stages: [
+      {
+        name: "Mad Max",
+        bands: [],
+      },
+      {
+        name: "Medusa",
+        bands: [],
+      },
+    ],
   },
 ]
 

@@ -5,3 +5,5 @@ type t =
   | @as("🤮") Puke
 
 let all = [ThumbsUp, ThumbsDown, Thinking, Puke]
+
+external fromString: string => t = "%identity"
