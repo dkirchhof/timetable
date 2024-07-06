@@ -1,5 +1,8 @@
 // config
-let festival = "reload-2024"
+let festival = %raw(`
+  location.search.match(/\?festival=([\w-]+)/)?.[1]
+`)
+
 let config = Dict.getUnsafe(Config.festivals, festival)
 
 // data
