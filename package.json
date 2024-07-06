@@ -8,7 +8,9 @@
   },
   "devDependencies": { "rescript": "^11.1.0" },
   "scripts": {
+    "build": "rescript build",
     "build-dev": "rescript build -w",
+    "bundle": "bun build ./src/index.res.mjs --outfile ./public/bundle.mjs --minify",
     "bundle-dev": "bun build ./src/index.res.mjs --outfile ./public/bundle.mjs --watch",
     "serve": "lite-server"
   },
