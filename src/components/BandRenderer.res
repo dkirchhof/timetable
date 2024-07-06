@@ -20,8 +20,6 @@ let container = Emotion.css`
     background: none;
     border: none;
 
-    cursor: pointer;
-
     font: inherit;
     text-align: left;
   }

@@ -22,8 +22,6 @@ let container = css`
       border: none;
       border-radius: 0.25rem;
 
-      cursor: pointer;
-
       &[aria-selected="false"] {
         background: none;
       }
