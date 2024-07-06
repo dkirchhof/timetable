@@ -1,0 +1,16 @@
+{
+  "name": "painless",
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@rescript/core": "^1.1.0",
+    "rescript-voby": "../rescript-voby",
+    "voby": "^0.57.4"
+  },
+  "devDependencies": { "rescript": "^11.1.0" },
+  "scripts": {
+    "build-dev": "rescript build -w",
+    "bundle-dev": "bun build ./src/index.res.mjs --outfile ./public/bundle.mjs --watch",
+    "serve": "lite-server"
+  },
+  "type": "module"
+}
