@@ -2,7 +2,7 @@ type props = {band: Band.t}
 
 let container = Emotion.css`
   grid-area: 1/1;
-  translate: 0 calc((var(--start) - ${Float.toString(Config.start)}) * var(--cell-height));
+  translate: 0 calc((var(--start) - ${Float.toString(State.config.start)}) * var(--cell-height));
   height: calc((var(--end) - var(--start)) * var(--cell-height));
 
   background: var(--accent-color);

@@ -1,5 +1,5 @@
-let delta = Float.toInt(Config.end -. Config.start) + 1
-let range = Array.fromInitializer(~length=delta, i => Config.start +. Int.toFloat(i))
+let delta = Float.toInt(State.config.end -. State.config.start) + 1
+let range = Array.fromInitializer(~length=delta, i => State.config.start +. Int.toFloat(i))
 
 let container = Emotion.css`
   display: grid;

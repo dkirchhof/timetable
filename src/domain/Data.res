@@ -1,7 +1,5 @@
 type t = Dict.t<Emoji.t>
 
-let load = (): t => Dict.make()
-
 let get = (data, id) => {
   Dict.get(data, id)
 }

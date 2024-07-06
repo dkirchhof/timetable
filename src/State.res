@@ -1,12 +1,22 @@
+// config
+let festival = "reload-2024"
+let config = Dict.getUnsafe(Config.festivals, festival)
+
 // data
-let data = Voby.Observable.make(Data.load())
+let data = Persistent.loadData(festival)->Voby.Observable.make
 
 let setEmoji = (id, emoji) => {
-  Voby.Observable.update(data, d => Data.set(d, id, emoji))
+  Voby.Observable.update(data, d => {
+    let newData = Data.set(d, id, emoji)
+
+    Persistent.saveData(festival, newData)
+
+    newData
+  })
 }
 
 // selected day
-let selectedDay = Voby.Observable.make(Config.days->Array.getUnsafe(0))
+let selectedDay = Voby.Observable.make(config.days->Array.getUnsafe(0))
 
 let setDay = (day: Day.t) => {
   Voby.Observable.update(selectedDay, _ => day)

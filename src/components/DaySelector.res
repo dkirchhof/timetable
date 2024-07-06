@@ -1,7 +1,7 @@
 @jsx.component
 let make = () => {
   <ul class=SelectorStyles.container>
-    {Config.days
+    {State.config.days
     ->Array.map(day =>
       <li>
         <button
