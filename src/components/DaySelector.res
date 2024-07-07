@@ -2,11 +2,11 @@
 let make = () => {
   <ul class=SelectorStyles.container>
     {State.config.days
-    ->Array.map(day =>
+    ->Array.mapWithIndex((day, i) =>
       <li>
         <button
-          ariaSelected={Voby.Observable.bind(State.selectedDay, selectedDay => day === selectedDay)}
-          onClick={_ => State.setDay(day)}>
+          ariaSelected={Voby.Observable.bind(State.selectedDay, selectedDay => i === selectedDay)}
+          onClick={_ => State.setDay(i)}>
           {Voby.JSX.string(day.name)}
         </button>
       </li>

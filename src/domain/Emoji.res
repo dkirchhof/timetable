@@ -1,9 +1,4 @@
-type t =
-  | @as("👍") ThumbsUp
-  | @as("👎") ThumbsDown
-  | @as("🤔") Thinking
-  | @as("🤮") Puke
+type t = string
 
-let all = [ThumbsUp, ThumbsDown, Thinking, Puke]
-
-external fromString: string => t = "%identity"
+// thumbsup, thumbsdown, thinking, puke
+let all = ["👍", "👎", "🤔", "🤮"]

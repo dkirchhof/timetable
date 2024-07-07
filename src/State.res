@@ -4,29 +4,26 @@ let festival = %raw(`
 `)
 
 let config = Dict.getUnsafe(Config.festivals, festival)
+let data = Persistent.loadData(festival)
 
-// data
-let data = Persistent.loadData(festival)->Voby.Observable.make
+// ratings
+let ratings = Voby.Observable.make(data.ratings)
 
-let setEmoji = (id, emoji) => {
-  Voby.Observable.update(data, d => {
-    let newData = Data.set(d, id, emoji)
-
-    Persistent.saveData(festival, newData)
-
-    newData
+let setRating = (bandId, emoji) => {
+  Voby.Observable.update(ratings, r => {
+    Ratings.setRating(r, bandId, emoji)
   })
 }
 
 // selected day
-let selectedDay = Voby.Observable.make(config.days->Array.getUnsafe(0))
+let selectedDay = Voby.Observable.make(data.filter.day)
 
-let setDay = (day: Day.t) => {
+let setDay = (day: int) => {
   Voby.Observable.update(selectedDay, _ => day)
 }
 
 // emoji filter
-let emojiFilter = EmojiFilter.make()->Voby.Observable.make
+let emojiFilter = Voby.Observable.make(data.filter.emojis)
 
 let setEmojiFilter = filter => {
   Voby.Observable.update(emojiFilter, _ => filter)
@@ -37,3 +34,17 @@ let emojiPicker: Voby.Observable.t<option<string>> = Voby.Observable.make(None)
 
 let closeEmojiPicker = () => Voby.Observable.update(emojiPicker, _ => None)
 let showEmojiPicker = id => Voby.Observable.update(emojiPicker, _ => Some(id))
+
+// track state and save it
+Oby.effect(() => {
+  Persistent.saveData(
+    festival,
+    {
+      filter: {
+        day: Voby.Observable.getValue(selectedDay),
+        emojis: Voby.Observable.getValue(emojiFilter),
+      },
+      ratings: Voby.Observable.getValue(ratings),
+    },
+  )
+})

@@ -65,8 +65,8 @@ let emojiContainer = Emotion.css`
 let make = props => {
   let timeStr = [Time.toString(props.band.start), Time.toString(props.band.end)]->Array.join(" - ")
 
-  Voby.Observable.bind2(State.data, State.emojiFilter, (data, filter) => {
-    let emoji = data->Data.get(props.band.id)
+  Voby.Observable.bind2(State.ratings, State.emojiFilter, (ratings, filter) => {
+    let emoji = Ratings.getRating(ratings, props.band.id)
 
     let selected = switch emoji {
     | Some(emoji) => filter->EmojiFilter.getEmoji(emoji)
@@ -75,10 +75,12 @@ let make = props => {
 
     let class = `${container} ${selected ? "" : filteredOut}`
 
-    let style = Obj.magic(`
+    let style = Obj.magic(
+      `
       --start: ${props.band.start->Time.toFloat->Float.toString};
       --end: ${props.band.end->Time.toFloat->Float.toString};
-    `)
+    `,
+    )
 
     <li class style>
       <button popoverTarget={props.band.id} onClick={_ => State.showEmojiPicker(props.band.id)}>
@@ -87,14 +89,10 @@ let make = props => {
           <div class=name> {Voby.JSX.string(props.band.name)} </div>
         </div>
         <div class=emojiContainer>
-          {Voby.Observable.bind(State.data, data => {
-            let emoji = data->Data.get(props.band.id)
-
-            switch emoji {
-            | Some(emoji) => <EmojiRenderer emoji />
-            | None => Voby.JSX.null
-            }
-          })}
+          {switch emoji {
+          | Some(emoji) => <EmojiRenderer emoji />
+          | None => Voby.JSX.null
+          }}
         </div>
       </button>
     </li>

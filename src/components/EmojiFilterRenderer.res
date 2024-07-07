@@ -9,7 +9,7 @@ let make = () => {
           <button
             ariaSelected={selected}
             onClick={_ => filter->EmojiFilter.setEmoji(emoji, !selected)->State.setEmojiFilter}>
-            <EmojiRenderer emoji={Emoji.fromString(emoji)} />
+            <EmojiRenderer emoji />
           </button>
         </li>
       )

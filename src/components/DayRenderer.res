@@ -35,7 +35,9 @@ let list = Emotion.css`
 
 @jsx.component
 let make = () => {
-  Voby.Observable.bind(State.selectedDay, day => {
+  Voby.Observable.bind(State.selectedDay, sd => {
+    let day = Array.getUnsafe(State.config.days, sd)
+
     <div class=container>
       <div>
         <ul class=list>

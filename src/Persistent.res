@@ -1,20 +1,49 @@
-let loadData: string => Data.t = festival => {
-  let fromStorage = Dom.Storage2.getItem(Dom.Storage.localStorage, festival)
+open RescriptSchema
+
+type filter = {
+  day: int,
+  emojis: EmojiFilter.t,
+}
+
+type t = {
+  filter: filter,
+  ratings: Ratings.t, 
+}
+
+let schema = S.object(s =>
+  {
+    filter: s.field(
+      "filter",
+      S.object(s =>
+        {
+          day: s.field("day", S.int),
+          emojis: s.field("emojis", S.dict(S.bool)),
+        }
+      ),
+    ),
+    ratings: s.field("ratings", S.dict(S.string)),
+  }
+)
+
+let loadData = festival => {
+  let fromStorage =
+    Dom.Storage2.getItem(Dom.Storage.localStorage, festival)->Option.map(
+      S.parseJsonStringWith(_, schema),
+    )
 
   switch fromStorage {
-  | Some(str) => {
-      let parsed = JSON.parseExn(str)
-
-      switch parsed {
-      | Object(result) => Obj.magic(result)
-      | _ => Dict.make()
-      }
+  | Some(Ok(data)) => data
+  | _ => {
+      filter: {
+        day: 0,
+        emojis: EmojiFilter.make(),
+      },
+      ratings: Ratings.make(),
     }
-  | None => Dict.make()
   }
 }
 
-let saveData = (festival, data) => {
+let saveData = (festival, data: t) => {
   data
   ->JSON.stringifyAny
   ->Option.forEach(str => Dom.Storage2.setItem(Dom.Storage.localStorage, festival, str))

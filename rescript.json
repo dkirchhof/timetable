@@ -15,6 +15,7 @@
   "suffix": ".res.mjs",
   "bs-dependencies": [
     "@rescript/core",
+    "rescript-schema",
     "rescript-voby"
   ],
   "bsc-flags": [

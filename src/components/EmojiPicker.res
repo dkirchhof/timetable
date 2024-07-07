@@ -38,7 +38,7 @@ let make = () =>
           {Emoji.all
           ->Array.map(emoji =>
             <li>
-              <button onClick={_ => State.setEmoji(bandId, emoji)}>
+              <button onClick={_ => State.setRating(bandId, emoji)}>
                 <EmojiRenderer emoji />
               </button>
             </li>
