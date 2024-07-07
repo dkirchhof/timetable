@@ -2,7 +2,7 @@ type props = {stage: Stage.t}
 
 let container = Emotion.css`
   display: grid;
-  grid-template-rows: var(--cell-height) 1fr;
+  grid-template-rows: var(--stage-name-height) 1fr;
 
   border: 1px solid var(--border-color);
   border-right: none;

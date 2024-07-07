@@ -1,5 +1,9 @@
-let delta = Float.toInt(State.config.end -. State.config.start) + 1
-let range = Array.fromInitializer(~length=delta, i => State.config.start +. Int.toFloat(i))
+let delta = State.config.end.h - State.config.start.h + 1
+
+let range = Array.fromInitializer(~length=delta, i => {
+  Time.h: State.config.start.h + i,
+  Time.m: 0,
+})
 
 let container = Emotion.css`
   display: grid;
@@ -12,13 +16,17 @@ let stages = Emotion.css`
   grid-auto-flow: column;
 
   overflow-x: auto;
+
+  > * {
+    min-width: 60vw;
+  }
 `
 
 let list = Emotion.css`
   list-style: none;
 
   margin: 0;
-  padding: calc(var(--cell-height) - 0.75ex) 0 0 0;
+  padding: calc(var(--stage-name-height) - 0.75ex) 0 0 0;
 
   > li {
     height: var(--cell-height);

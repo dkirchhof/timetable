@@ -2,7 +2,7 @@ type props = {band: Band.t}
 
 let container = Emotion.css`
   grid-area: 1/1;
-  translate: 0 calc((var(--start) - ${Float.toString(State.config.start)}) * var(--cell-height));
+  translate: 0 calc((var(--start) - ${Int.toString(State.config.start.h)}) * var(--cell-height));
   height: calc((var(--end) - var(--start)) * var(--cell-height));
 
   background: var(--accent-color);
@@ -35,11 +35,21 @@ let text = Emotion.css`
   justify-content: center;
   gap: 0.25rem;
 
+  overflow: hidden;
+
   padding: 0 0.75rem;
+
+  white-space: nowrap;
 `
 
 let time = Emotion.css`
   font-size: 0.75rem;
+`
+
+let name = Emotion.css`
+  overflow: hidden;
+
+  text-overflow: ellipsis;
 `
 
 let emojiContainer = Emotion.css`
@@ -65,15 +75,16 @@ let make = props => {
 
     let class = `${container} ${selected ? "" : filteredOut}`
 
-    let style = Obj.magic(
-      ` --start: ${Float.toString(props.band.start)}; --end: ${Float.toString(props.band.end)};`
-    )
+    let style = Obj.magic(`
+      --start: ${props.band.start->Time.toFloat->Float.toString};
+      --end: ${props.band.end->Time.toFloat->Float.toString};
+    `)
 
     <li class style>
       <button popoverTarget={props.band.id} onClick={_ => State.showEmojiPicker(props.band.id)}>
         <div class=text>
           <div class=time> {Voby.JSX.string(timeStr)} </div>
-          <div> {Voby.JSX.string(props.band.name)} </div>
+          <div class=name> {Voby.JSX.string(props.band.name)} </div>
         </div>
         <div class=emojiContainer>
           {Voby.Observable.bind(State.data, data => {

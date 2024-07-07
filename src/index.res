@@ -16,7 +16,8 @@ let x = Emotion.injectGlobal`
     --border-color: #eeeeee;
     --select-color: #e1e1e1;
 
-    --cell-height: 5rem;
+    --stage-name-height: 4rem;
+    --cell-height: 7rem;
 
     color: #000002;
   }
