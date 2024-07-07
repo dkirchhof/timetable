@@ -23,7 +23,7 @@ let schema = S.object(s => {
 
 let loadSelectedFestival = () => {
   Dom.Storage2.getItem(Dom.Storage.localStorage, "festival")->Option.flatMap(slug =>
-    Dict.get(Config.festivals, slug)
+    Array.find(Config.festivals, festival => festival.slug === slug)
   )
 }
 
@@ -35,9 +35,9 @@ let saveSelectedFestival = (festival: option<Festival.t>) => {
   )
 }
 
-let loadData = festival => {
+let loadData = (festival: Festival.t) => {
   let fromStorage =
-    Dom.Storage2.getItem(Dom.Storage.localStorage, festival)->Option.map(
+    Dom.Storage2.getItem(Dom.Storage.localStorage, festival.slug)->Option.map(
       S.parseJsonStringWith(_, schema),
     )
 

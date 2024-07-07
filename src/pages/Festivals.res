@@ -31,8 +31,7 @@ let make = props =>
     <main class=main>
       <ul>
         {Config.festivals
-        ->Dict.toArray
-        ->Array.map(((slug, festival)) =>
+        ->Array.map(festival =>
           <li>
             <button onClick={_ => props.selectFestival(festival)}>
               {Voby.JSX.string(festival.name)}

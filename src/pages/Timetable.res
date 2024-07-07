@@ -13,7 +13,7 @@ let main = Emotion.css`
 let make = props => {
   DomUtils.setTitle(`Timetable | ${props.festival.name}`)
 
-  let data = Persistent.loadData(props.festival.slug)
+  let data = Persistent.loadData(props.festival)
 
   let ratings = Voby.Observable.make(data.ratings)
   let selectedDay = Voby.Observable.make(data.filter.day)
