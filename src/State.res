@@ -1,10 +1,12 @@
 // config
-let festival = %raw(`
+let festival: string = %raw(`
   location.search.match(/\?festival=([\w-]+)/)?.[1]
 `)
 
 let config = Dict.getUnsafe(Config.festivals, festival)
 let data = Persistent.loadData(festival)
+
+DomUtils.setTitle(`Timetable | ${festival}`)
 
 // ratings
 let ratings = Voby.Observable.make(data.ratings)
