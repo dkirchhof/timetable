@@ -1,0 +1,16 @@
+{
+  "id": "timetable",
+  "name": "Timetable",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "display": "standalone",
+  "theme_color": "#ffb000",
+  "background_color": "#ffffff"
+}
