@@ -6,4 +6,4 @@ let container = Emotion.css`
   font-family: Noto Emoji;
 `
 
-let make = props => <div class=container> {Voby.JSX.string((props.emoji :> string))} </div>
+let make = props => <div class=container> {Voby.JSX.string(props.emoji)} </div>

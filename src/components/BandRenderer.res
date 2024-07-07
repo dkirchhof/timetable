@@ -1,8 +1,12 @@
-type props = {band: Band.t}
+type props = {
+  band: Band.t,
+  ratings: Voby.Observable.t<Ratings.t>,
+  emojiFilter: Voby.Observable.t<EmojiFilter.t>,
+}
 
 let container = Emotion.css`
   grid-area: 1/1;
-  translate: 0 calc((var(--start) - ${Int.toString(State.config.start.h)}) * var(--cell-height));
+  translate: 0 calc((var(--start) - var(--timetable-offset)) * var(--cell-height));
   height: calc((var(--end) - var(--start)) * var(--cell-height));
 
   background: var(--accent-color);
@@ -65,7 +69,7 @@ let emojiContainer = Emotion.css`
 let make = props => {
   let timeStr = [Time.toString(props.band.start), Time.toString(props.band.end)]->Array.join(" - ")
 
-  Voby.Observable.bind2(State.ratings, State.emojiFilter, (ratings, filter) => {
+  Voby.Observable.bind2(props.ratings, props.emojiFilter, (ratings, filter) => {
     let emoji = Ratings.getRating(ratings, props.band.id)
 
     let selected = switch emoji {
@@ -83,7 +87,15 @@ let make = props => {
     )
 
     <li class style>
-      <button popoverTarget={props.band.id} onClick={_ => State.showEmojiPicker(props.band.id)}>
+      <button
+        popoverTarget={props.band.id}
+        onClick={_ =>
+          State.showEmojiPicker(emoji =>
+            Voby.Observable.update(
+              props.ratings,
+              ratings => Ratings.setRating(ratings, props.band.id, emoji),
+            )
+          )}>
         <div class=text>
           <div class=time> {Voby.JSX.string(timeStr)} </div>
           <div class=name> {Voby.JSX.string(props.band.name)} </div>

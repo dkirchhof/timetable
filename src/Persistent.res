@@ -7,23 +7,33 @@ type filter = {
 
 type t = {
   filter: filter,
-  ratings: Ratings.t, 
+  ratings: Ratings.t,
 }
 
-let schema = S.object(s =>
-  {
-    filter: s.field(
-      "filter",
-      S.object(s =>
-        {
-          day: s.field("day", S.int),
-          emojis: s.field("emojis", S.dict(S.bool)),
-        }
-      ),
-    ),
-    ratings: s.field("ratings", S.dict(S.string)),
-  }
-)
+let schema = S.object(s => {
+  filter: s.field(
+    "filter",
+    S.object(s => {
+      day: s.field("day", S.int),
+      emojis: s.field("emojis", S.dict(S.bool)),
+    }),
+  ),
+  ratings: s.field("ratings", S.dict(S.string)),
+})
+
+let loadSelectedFestival = () => {
+  Dom.Storage2.getItem(Dom.Storage.localStorage, "festival")->Option.flatMap(slug =>
+    Dict.get(Config.festivals, slug)
+  )
+}
+
+let saveSelectedFestival = (festival: option<Festival.t>) => {
+  Dom.Storage2.setItem(
+    Dom.Storage.localStorage,
+    "festival",
+    Option.mapOr(festival, "", festival => festival.slug),
+  )
+}
 
 let loadData = festival => {
   let fromStorage =

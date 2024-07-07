@@ -30,15 +30,15 @@ let container = Emotion.css`
 
 @jsx.component
 let make = () =>
-  Voby.Observable.bind(State.emojiPicker, bandId =>
-    switch bandId {
-    | Some(bandId) =>
+  Voby.Observable.bind(State.emojiPicker, cb =>
+    switch cb {
+    | Some(cb) =>
       <div class=backdrop onClick={_ => State.closeEmojiPicker()}>
         <ul class=container>
           {Emoji.all
           ->Array.map(emoji =>
             <li>
-              <button onClick={_ => State.setRating(bandId, emoji)}>
+              <button onClick={_ => cb(emoji)}>
                 <EmojiRenderer emoji />
               </button>
             </li>

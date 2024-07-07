@@ -1,6 +1,8 @@
 let t = Time.fromString
 
 let config: Festival.t = {
+  name: "Reload 2024",
+  slug: "reload-2024",
   color: "#ffb000",
   start: t("09:00"),
   end: t("02:00+1"),

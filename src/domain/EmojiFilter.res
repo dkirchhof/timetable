@@ -1,15 +1,15 @@
 type t = Dict.t<bool>
 
-let make = () => Emoji.all->Array.map(emoji => ((emoji :> string), true))->Dict.fromArray
+let make = () => Emoji.all->Array.map(emoji => (emoji, true))->Dict.fromArray
 
 let getEmoji = (filter, emoji: Emoji.t) => {
-  Dict.getUnsafe(filter, (emoji :> string))
+  Dict.getUnsafe(filter, emoji)
 }
 
 let setEmoji = (filter, emoji, value) => {
   let copy = Dict.copy(filter)
 
-  Dict.set(copy, (emoji :> string), value)
+  Dict.set(copy, emoji, value)
 
   copy
 }

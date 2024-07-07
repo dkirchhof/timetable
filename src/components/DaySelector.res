@@ -1,12 +1,13 @@
-@jsx.component
-let make = () => {
+type props = {festival: Festival.t, selectedDay: Voby.Observable.t<int>}
+
+let make = props => {
   <ul class=SelectorStyles.container>
-    {State.config.days
+    {props.festival.days
     ->Array.mapWithIndex((day, i) =>
       <li>
         <button
-          ariaSelected={Voby.Observable.bind(State.selectedDay, selectedDay => i === selectedDay)}
-          onClick={_ => State.setDay(i)}>
+          ariaSelected={Voby.Observable.bind(props.selectedDay, selectedDay => i === selectedDay)}
+          onClick={_ => Voby.Observable.update(props.selectedDay, _ => i)}>
           {Voby.JSX.string(day.name)}
         </button>
       </li>

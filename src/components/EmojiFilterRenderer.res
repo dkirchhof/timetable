@@ -1,14 +1,19 @@
-@jsx.component
-let make = () => {
+type props = {emojiFilter: Voby.Observable.t<EmojiFilter.t>}
+
+let make = props => {
   <ul class=SelectorStyles.container>
-    {Voby.Observable.bind(State.emojiFilter, filter => {
+    {Voby.Observable.bind(props.emojiFilter, filter => {
       filter
       ->Dict.toArray
       ->Array.map(((emoji, selected)) =>
         <li>
           <button
             ariaSelected={selected}
-            onClick={_ => filter->EmojiFilter.setEmoji(emoji, !selected)->State.setEmojiFilter}>
+            onClick={_ =>
+              Voby.Observable.update(
+                props.emojiFilter,
+                current => EmojiFilter.setEmoji(current, emoji, !selected),
+              )}>
             <EmojiRenderer emoji />
           </button>
         </li>

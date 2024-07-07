@@ -1,9 +1,9 @@
-let delta = State.config.end.h - State.config.start.h + 1
-
-let range = Array.fromInitializer(~length=delta, i => {
-  Time.h: State.config.start.h + i,
-  Time.m: 0,
-})
+type props = {
+  festival: Festival.t,
+  day: Day.t,
+  ratings: Voby.Observable.t<Ratings.t>,
+  emojiFilter: Voby.Observable.t<EmojiFilter.t>,
+}
 
 let container = Emotion.css`
   display: grid;
@@ -33,22 +33,28 @@ let list = Emotion.css`
   }
 `
 
-@jsx.component
-let make = () => {
-  Voby.Observable.bind(State.selectedDay, sd => {
-    let day = Array.getUnsafe(State.config.days, sd)
+let make = props => {
+  let delta = props.festival.end.h - props.festival.start.h + 1
 
-    <div class=container>
-      <div>
-        <ul class=list>
-          {range
-          ->Array.map(r => <li> {r->Time.toString->Voby.JSX.string} </li>)
-          ->Voby.JSX.array}
-        </ul>
-      </div>
-      <div class=stages>
-        {day.stages->Array.map(stage => <StageRenderer stage />)->Voby.JSX.array}
-      </div>
-    </div>
+  let range = Array.fromInitializer(~length=delta, i => {
+    Time.h: props.festival.start.h + i,
+    Time.m: 0,
   })
+
+  <div class=container>
+    <div>
+      <ul class=list>
+        {range
+        ->Array.map(r => <li> {r->Time.toString->Voby.JSX.string} </li>)
+        ->Voby.JSX.array}
+      </ul>
+    </div>
+    <div class=stages>
+      {props.day.stages
+      ->Array.map(stage =>
+        <StageRenderer stage ratings=props.ratings emojiFilter=props.emojiFilter />
+      )
+      ->Voby.JSX.array}
+    </div>
+  </div>
 }
