@@ -72,9 +72,9 @@ let config: Festival.t = {
           bands: [
             {id: "33", name: "Heavysaurus", start: t("09:30"), end: t("10:10")},
             {id: "34", name: "Snakes in the Pit", start: t("12:45"), end: t("13:15")},
-            {id: "35", name: "Green Lung", start: t("13:45"), end: t("14:15")},
-            {id: "36", name: "As Everything Unfolds", start: t("14:55"), end: t("15:35")},
-            {id: "37", name: "Future Palace", start: t("16:15"), end: t("16:55")},
+            {id: "37", name: "Future Palace", start: t("13:45"), end: t("14:15")},
+            {id: "35", name: "Green Lung", start: t("14:55"), end: t("15:35")},
+            {id: "36", name: "As Everything Unfolds", start: t("16:15"), end: t("16:55")},
             {id: "38", name: "The Butcher Sisters", start: t("17:35"), end: t("18:15")},
             {id: "39", name: "Massendefekt", start: t("19:00"), end: t("19:40")},
             {id: "40", name: "Madball", start: t("20:40"), end: t("21:20")},
