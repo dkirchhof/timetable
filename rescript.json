@@ -1,10 +1,10 @@
 {
-  "name": "painless",
+  "name": "timetable",
   "sources": [
     {
       "dir": "src",
       "subdirs": true
-    },
+    }
   ],
   "package-specs": [
     {

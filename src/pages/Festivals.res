@@ -9,6 +9,10 @@ let main = Emotion.css`
     margin: 0;
     padding: 0;
 
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
     > li > button {
       display: grid;
       align-items: center;
