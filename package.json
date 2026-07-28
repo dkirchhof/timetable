@@ -3,12 +3,11 @@
   "dependencies": {
     "@emotion/css": "^11.11.2",
     "@rescript/core": "^1.1.0",
-    "rescript-schema": "^7.0.1",
     "rescript-voby": "github:dkirchhof/rescript-voby",
-    "voby": "^0.57.4"
+    "voby": "^0.58.1"
   },
   "devDependencies": {
-    "rescript": "^11.1.0"
+    "rescript": "^12.3.0"
   },
   "scripts": {
     "build": "rescript build",

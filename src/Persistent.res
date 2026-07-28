@@ -1,5 +1,3 @@
-open RescriptSchema
-
 type filter = {
   day: int,
   emojis: EmojiFilter.t,
@@ -10,16 +8,16 @@ type t = {
   ratings: Ratings.t,
 }
 
-let schema = S.object(s => {
-  filter: s.field(
-    "filter",
-    S.object(s => {
-      day: s.field("day", S.int),
-      emojis: s.field("emojis", S.dict(S.bool)),
-    }),
-  ),
-  ratings: s.field("ratings", S.dict(S.string)),
-})
+// let schema = S.object(s => {
+//   filter: s.field(
+//     "filter",
+//     S.object(s => {
+//       day: s.field("day", S.int),
+//       emojis: s.field("emojis", S.dict(S.bool)),
+//     }),
+//   ),
+//   ratings: s.field("ratings", S.dict(S.string)),
+// })
 
 let loadSelectedFestival = () => {
   Dom.Storage2.getItem(Dom.Storage.localStorage, "festival")->Option.flatMap(slug =>
@@ -36,13 +34,19 @@ let saveSelectedFestival = (festival: option<Festival.t>) => {
 }
 
 let loadData = (festival: Festival.t) => {
-  let fromStorage =
-    Dom.Storage2.getItem(Dom.Storage.localStorage, festival.slug)->Option.map(
-      S.parseJsonStringWith(_, schema),
-    )
+  let fromStorage = Dom.Storage2.getItem(
+    Dom.Storage.localStorage,
+    festival.slug,
+  )->Option.flatMap(item => {
+    try {
+      item->JSON.parseExn->Obj.magic->Some
+    } catch {
+    | _ => None
+    }
+  })
 
   switch fromStorage {
-  | Some(Ok(data)) => data
+  | Some(data) => data
   | _ => {
       filter: {
         day: 0,
