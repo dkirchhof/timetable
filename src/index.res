@@ -34,11 +34,12 @@ let x = Emotion.injectGlobal`
 
   #app {
     --accent-color: #ffb000;
+    --accent-color-bright: #ffecc0;
     --border-color: #eeeeee;
     --select-color: #e1e1e1;
 
     --stage-name-height: 4rem;
-    --cell-height: 7rem;
+    --cell-height: 10rem;
 
     color: #000002;
 

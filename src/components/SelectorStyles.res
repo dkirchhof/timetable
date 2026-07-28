@@ -11,7 +11,6 @@ let container = css`
   padding: 0.5rem;
 
   background: var(--border-color);
-  border-radius: 0.5rem;
 
   > li {
     > button {

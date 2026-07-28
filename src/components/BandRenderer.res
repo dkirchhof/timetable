@@ -1,4 +1,5 @@
 type props = {
+  stageName: string,
   band: Band.t,
   ratings: Voby.Observable.t<Ratings.t>,
   emojiFilter: Voby.Observable.t<EmojiFilter.t>,
@@ -11,21 +12,23 @@ let container = Emotion.css`
 
   background: var(--accent-color);
   box-shadow: 0 0 1rem 0 rgba(0,0,0,.1);
+  corner-shape: scoop;
+  border-top-right-radius: 1.5rem;
 
   > button {
     display: grid;
-    grid-template-columns: 1fr 3rem;
-    align-items: stretch;
+    align-content: start;
+    gap: 0.25rem;
 
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
 
     background: none;
     border: none;
 
     font: inherit;
-    text-align: left;
   }
 `
 
@@ -33,26 +36,18 @@ let filteredOut = Emotion.css`
   opacity: 0.25;
 `
 
-let text = Emotion.css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.25rem;
-
+let meta = Emotion.css`
   overflow: hidden;
 
-  padding: 0 0.75rem;
-
-  white-space: nowrap;
-`
-
-let time = Emotion.css`
   font-size: 0.75rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
 let name = Emotion.css`
   overflow: hidden;
 
+  white-space: nowrap;
   text-overflow: ellipsis;
 `
 
@@ -61,9 +56,16 @@ let emojiContainer = Emotion.css`
   align-items: center;
   justify-content: center;
 
-  border-left: 1px solid hsl(from var(--accent-color) h s calc(l * 0.8));
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 2rem;
+  height: 2rem;
 
-  font-size: 1.5rem;
+  background: var(--accent-color-bright);
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .1);
 `
 
 let make = props => {
@@ -88,18 +90,17 @@ let make = props => {
 
     <li class style>
       <button
-        popoverTarget={props.band.id}
         onClick={_ =>
           State.showEmojiPicker(emoji =>
             Voby.Observable.update(
               props.ratings,
               ratings => Ratings.setRating(ratings, props.band.id, emoji),
             )
-          )}>
-        <div class=text>
-          <div class=time> {Voby.JSX.string(timeStr)} </div>
-          <div class=name> {Voby.JSX.string(props.band.name)} </div>
-        </div>
+          )}
+      >
+        <div class=name> {Voby.JSX.string(props.band.name)} </div>
+        <div class=meta> {Voby.JSX.string(timeStr)} </div>
+        <div class=meta> {Voby.JSX.string(props.stageName)} </div>
         <div class=emojiContainer>
           {switch emoji {
           | Some(emoji) => <EmojiRenderer emoji />

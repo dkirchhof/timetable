@@ -13,9 +13,8 @@ let header = Emotion.css`
   position: sticky;
   top: 0;
   height: 2rem;
-  margin-bottom: 0.5rem;
   padding: 1rem;
-  z-index: 1;
+  z-index: 1000;
 
   background: var(--accent-color);
 

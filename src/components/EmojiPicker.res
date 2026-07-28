@@ -1,6 +1,7 @@
 let backdrop = Emotion.css`
   position: fixed;
   inset: 0;
+  z-index: 2000;
 
   display: flex;
   justify-content: center;

@@ -1,4 +1,5 @@
 type props = {
+  index: int,
   stage: Stage.t,
   ratings: Voby.Observable.t<Ratings.t>,
   emojiFilter: Voby.Observable.t<EmojiFilter.t>,
@@ -21,9 +22,17 @@ let name = Emotion.css`
   justify-content: center;
   align-items: center;
 
-  padding: 1rem;
+  overflow: hidden;
+  padding: 0.5rem;
 
   background: var(--accent-color);
+
+  > span {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `
 
 let list = Emotion.css`
@@ -39,11 +48,19 @@ let list = Emotion.css`
 `
 
 let make = props => {
-  <div class=container>
-    <div class=name> {Voby.JSX.string(props.stage.name)} </div>
+  let style = Obj.magic(`z-index: ${Int.toString(100 - props.index)}`)
+
+  <div class=container style>
+    <div class=name>
+      <span> {Voby.JSX.string(props.stage.name)} </span>
+    </div>
     <ul class=list>
       {props.stage.bands
-      ->Array.map(band => <BandRenderer band ratings=props.ratings emojiFilter=props.emojiFilter />)
+      ->Array.map(band =>
+        <BandRenderer
+          stageName=props.stage.name band ratings=props.ratings emojiFilter=props.emojiFilter
+        />
+      )
       ->Voby.JSX.array}
     </ul>
   </div>

@@ -78,7 +78,7 @@ let config: Festival.t = {
             {id: "vulvarine", name: "Vulvarine", start: t("12:50"), end: t("13:30")},
             {id: "allt", name: "Allt", start: t("13:50"), end: t("14:30")},
             {id: "self-deception", name: "Self Deception", start: t("14:50"), end: t("15:30")},
-            {id: "3sk", name: "3SK", start: t("15:50"), end: t("16:30")},
+            {id: "zsk", name: "ZSK", start: t("15:50"), end: t("16:30")},
             {id: "deafheaven", name: "Deafheaven", start: t("17:20"), end: t("18:00")},
             {id: "terror", name: "Terror", start: t("18:50"), end: t("19:30")},
             {id: "soulfly", name: "Soulfly", start: t("20:25"), end: t("21:05")},

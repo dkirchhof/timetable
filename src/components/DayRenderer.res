@@ -18,7 +18,7 @@ let stages = Emotion.css`
   overflow-x: auto;
 
   > * {
-    min-width: 60vw;
+    min-width: 25vw;
   }
 `
 
@@ -26,7 +26,7 @@ let list = Emotion.css`
   list-style: none;
 
   margin: 0;
-  padding: calc(var(--stage-name-height) - 0.75ex) 0 0 0;
+  padding: calc(var(--stage-name-height) - 1ex) 0 0 0;
 
   > li {
     height: var(--cell-height);
@@ -51,8 +51,8 @@ let make = props => {
     </div>
     <div class=stages>
       {props.day.stages
-      ->Array.map(stage =>
-        <StageRenderer stage ratings=props.ratings emojiFilter=props.emojiFilter />
+      ->Array.mapWithIndex((stage, index) =>
+        <StageRenderer index stage ratings=props.ratings emojiFilter=props.emojiFilter />
       )
       ->Voby.JSX.array}
     </div>
