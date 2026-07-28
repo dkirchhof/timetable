@@ -6,14 +6,10 @@ type props = {
 
 let container = Emotion.css`
   display: grid;
-  grid-template-rows: var(--stage-name-height) 1fr;
+  grid-template-columns: subgrid;
+  grid-column: 1 / 3;
 
-  border: 1px solid var(--border-color);
-  border-right: none;
-
-  &:last-child {
-    border-right: 1px solid var(--border-color);
-  }
+  border-block-start: 1px solid var(--border-color);
 `
 
 let name = Emotion.css`
@@ -24,6 +20,8 @@ let name = Emotion.css`
   padding: 1rem;
 
   background: var(--accent-color);
+
+  white-space: nowrap;
 `
 
 let list = Emotion.css`
@@ -31,20 +29,24 @@ let list = Emotion.css`
 
   display: grid;
 
+  grid-column: 2;
+
   margin: 0;
   padding: 0;
 
-  background: linear-gradient(var(--border-color), transparent 1px);
-  background-size: auto var(--cell-height);
+  background: linear-gradient(to right, var(--border-color), transparent 1px);
+  background-size: var(--cell-width) auto;
 `
 
 let make = props => {
-  <div class=container>
+  <li class=container>
     <div class=name> {Voby.JSX.string(props.stage.name)} </div>
     <ul class=list>
       {props.stage.bands
-      ->Array.map(band => <BandRenderer band ratings=props.ratings emojiFilter=props.emojiFilter />)
+      ->Array.map(band =>
+        <BandRenderer stage=props.stage band ratings=props.ratings emojiFilter=props.emojiFilter />
+      )
       ->Voby.JSX.array}
     </ul>
-  </div>
+  </li>
 }

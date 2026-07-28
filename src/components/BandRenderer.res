@@ -1,4 +1,5 @@
 type props = {
+  stage: Stage.t,
   band: Band.t,
   ratings: Voby.Observable.t<Ratings.t>,
   emojiFilter: Voby.Observable.t<EmojiFilter.t>,
@@ -6,26 +7,27 @@ type props = {
 
 let container = Emotion.css`
   grid-area: 1/1;
-  translate: 0 calc((var(--start) - var(--timetable-offset)) * var(--cell-height));
-  height: calc((var(--end) - var(--start)) * var(--cell-height));
+  translate: calc((var(--start) - var(--timetable-offset)) * var(--cell-width)) 0;
+  width: calc((var(--end) - var(--start)) * var(--cell-width));
 
   background: var(--accent-color);
   box-shadow: 0 0 1rem 0 rgba(0,0,0,.1);
 
   > button {
     display: grid;
-    grid-template-columns: 1fr 3rem;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 0.5rem;
 
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding: 0.75rem 1rem;
 
     background: none;
     border: none;
 
     font: inherit;
-    text-align: left;
   }
 `
 
@@ -33,27 +35,22 @@ let filteredOut = Emotion.css`
   opacity: 0.25;
 `
 
-let text = Emotion.css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.25rem;
-
-  overflow: hidden;
-
-  padding: 0 0.75rem;
-
-  white-space: nowrap;
-`
-
-let time = Emotion.css`
-  font-size: 0.75rem;
-`
-
 let name = Emotion.css`
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+`
+
+let meta = Emotion.css`
   overflow: hidden;
 
-  text-overflow: ellipsis;
+  > div {
+    overflow: hidden;
+
+    font-size: 0.75rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `
 
 let emojiContainer = Emotion.css`
@@ -61,9 +58,16 @@ let emojiContainer = Emotion.css`
   align-items: center;
   justify-content: center;
 
-  border-left: 1px solid hsl(from var(--accent-color) h s calc(l * 0.8));
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 2rem;
+  height: 2rem;
 
-  font-size: 1.5rem;
+  background: var(--accent-color-bright);
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .1);
 `
 
 let make = props => {
@@ -88,17 +92,18 @@ let make = props => {
 
     <li class style>
       <button
-        popoverTarget={props.band.id}
         onClick={_ =>
           State.showEmojiPicker(emoji =>
             Voby.Observable.update(
               props.ratings,
               ratings => Ratings.setRating(ratings, props.band.id, emoji),
             )
-          )}>
-        <div class=text>
-          <div class=time> {Voby.JSX.string(timeStr)} </div>
-          <div class=name> {Voby.JSX.string(props.band.name)} </div>
+          )}
+      >
+        <div class=name> {Voby.JSX.string(props.band.name)} </div>
+        <div class=meta>
+          <div> {Voby.JSX.string(timeStr)} </div>
+          <div> {Voby.JSX.string(props.stage.name)} </div>
         </div>
         <div class=emojiContainer>
           {switch emoji {
