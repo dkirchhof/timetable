@@ -2,7 +2,7 @@ type props = {
   index: int,
   stage: Stage.t,
   ratings: Voby.Observable.t<Ratings.t>,
-  emojiFilter: Voby.Observable.t<EmojiFilter.t>,
+  ratingFilter: Voby.Observable.t<RatingFilter.t>,
 }
 
 let container = Emotion.css`
@@ -58,7 +58,7 @@ let make = props => {
       {props.stage.bands
       ->Array.map(band =>
         <BandRenderer
-          stageName=props.stage.name band ratings=props.ratings emojiFilter=props.emojiFilter
+          stageName=props.stage.name band ratings=props.ratings ratingFilter=props.ratingFilter
         />
       )
       ->Voby.JSX.array}

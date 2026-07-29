@@ -35,6 +35,8 @@ let x = Emotion.injectGlobal`
   #app {
     --accent-color: #ffb000;
     --accent-color-bright: #ffecc0;
+    // --accent-color-bright: oklch(from var(--accent-color) 1 c h);
+    --accent-color-bright: hsl(from var(--accent-color) h s 90);
     --border-color: #eeeeee;
     --select-color: #e1e1e1;
 

@@ -2,7 +2,7 @@ type props = {
   festival: Festival.t,
   day: Day.t,
   ratings: Voby.Observable.t<Ratings.t>,
-  emojiFilter: Voby.Observable.t<EmojiFilter.t>,
+  ratingFilter: Voby.Observable.t<RatingFilter.t>,
 }
 
 let container = Emotion.css`
@@ -18,7 +18,7 @@ let stages = Emotion.css`
   overflow-x: auto;
 
   > * {
-    min-width: 25vw;
+    min-width: 30vw;
   }
 `
 
@@ -42,17 +42,15 @@ let make = props => {
   })
 
   <div class=container>
-    <div>
-      <ul class=list>
-        {range
-        ->Array.map(r => <li> {r->Time.toString->Voby.JSX.string} </li>)
-        ->Voby.JSX.array}
-      </ul>
-    </div>
+    <ul class=list>
+      {range
+      ->Array.map(r => <li> {r->Time.toString->Voby.JSX.string} </li>)
+      ->Voby.JSX.array}
+    </ul>
     <div class=stages>
       {props.day.stages
       ->Array.mapWithIndex((stage, index) =>
-        <StageRenderer index stage ratings=props.ratings emojiFilter=props.emojiFilter />
+        <StageRenderer index stage ratings=props.ratings ratingFilter=props.ratingFilter />
       )
       ->Voby.JSX.array}
     </div>

@@ -11,36 +11,26 @@ let backdrop = Emotion.css`
 `
 
 let container = Emotion.css`
-  list-style: none;
-
-  display: flex;
-
-  margin: 0;
-  padding: 1rem;
-
-  background: white;
-  border-radius: 10rem;
+  border-radius: 0.25rem;
 
   > li > button {
-    background: none;
-    border: none;
-
-    font-size: 1.5rem;
+    width: 4rem;
+    height: 3rem;
   }
 `
 
 @jsx.component
 let make = () =>
-  Voby.Observable.bind(State.emojiPicker, cb =>
+  Voby.Observable.bind(State.ratingPicker, cb =>
     switch cb {
     | Some(cb) =>
-      <div class=backdrop onClick={_ => State.closeEmojiPicker()}>
-        <ul class=container>
-          {Emoji.all
-          ->Array.map(emoji =>
+      <div class=backdrop onClick={_ => State.closeRatingPicker()}>
+        <ul class={`${SelectorStyles.container} ${container}`}>
+          {Rating.all
+          ->Array.map(rating =>
             <li>
-              <button onClick={_ => cb(emoji)}>
-                <EmojiRenderer emoji />
+              <button onClick={_ => cb(rating)}>
+                <RatingRenderer rating />
               </button>
             </li>
           )

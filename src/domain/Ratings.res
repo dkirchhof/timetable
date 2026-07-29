@@ -1,4 +1,4 @@
-type t = Dict.t<string>
+type t = Dict.t<Rating.t>
 
 let make = (): t => Dict.make()
 

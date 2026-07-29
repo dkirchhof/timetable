@@ -17,7 +17,7 @@ let make = props => {
 
   let ratings = Voby.Observable.make(data.ratings)
   let selectedDay = Voby.Observable.make(data.filter.day)
-  let emojiFilter = Voby.Observable.make(data.filter.emojis)
+  let ratingFilter = Voby.Observable.make(data.filter.ratings)
 
   Voby.Hooks.useEffect(() => {
     Persistent.saveData(
@@ -25,7 +25,7 @@ let make = props => {
       {
         filter: {
           day: Voby.Observable.getValue(selectedDay),
-          emojis: Voby.Observable.getValue(emojiFilter),
+          ratings: Voby.Observable.getValue(ratingFilter),
         },
         ratings: Voby.Observable.getValue(ratings),
       },
@@ -36,13 +36,13 @@ let make = props => {
     <Header title=props.festival.name backButtonCB={props.deselectFestival} />
     <main class=main>
       <DaySelector festival=props.festival selectedDay />
-      <EmojiFilterRenderer emojiFilter />
+      <RatingFilterRenderer ratingFilter />
       {Voby.Observable.bind(selectedDay, selectedDay => {
         let day = Array.getUnsafe(props.festival.days, selectedDay)
 
-        <DayRenderer festival=props.festival day ratings emojiFilter />
+        <DayRenderer festival=props.festival day ratings ratingFilter />
       })}
     </main>
-    <EmojiPicker />
+    <RatingPicker />
   </div>
 }

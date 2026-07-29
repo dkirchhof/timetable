@@ -13,11 +13,11 @@
     }
   ],
   "suffix": ".res.mjs",
-  "bs-dependencies": [
+  "dependencies": [
     "@rescript/core",
     "rescript-voby"
   ],
-  "bsc-flags": [
+  "flags": [
     "-open RescriptCore"
   ],
   "jsx": {

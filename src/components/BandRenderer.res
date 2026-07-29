@@ -2,7 +2,7 @@ type props = {
   stageName: string,
   band: Band.t,
   ratings: Voby.Observable.t<Ratings.t>,
-  emojiFilter: Voby.Observable.t<EmojiFilter.t>,
+  ratingFilter: Voby.Observable.t<RatingFilter.t>,
 }
 
 let container = Emotion.css`
@@ -51,7 +51,7 @@ let name = Emotion.css`
   text-overflow: ellipsis;
 `
 
-let emojiContainer = Emotion.css`
+let ratingContainer = Emotion.css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,11 +71,11 @@ let emojiContainer = Emotion.css`
 let make = props => {
   let timeStr = [Time.toString(props.band.start), Time.toString(props.band.end)]->Array.join(" - ")
 
-  Voby.Observable.bind2(props.ratings, props.emojiFilter, (ratings, filter) => {
-    let emoji = Ratings.getRating(ratings, props.band.id)
+  Voby.Observable.bind2(props.ratings, props.ratingFilter, (ratings, filter) => {
+    let rating = Ratings.getRating(ratings, props.band.id)
 
-    let selected = switch emoji {
-    | Some(emoji) => filter->EmojiFilter.getEmoji(emoji)
+    let selected = switch rating {
+    | Some(rating) => filter->RatingFilter.getRating(rating)
     | None => true
     }
 
@@ -91,19 +91,19 @@ let make = props => {
     <li class style>
       <button
         onClick={_ =>
-          State.showEmojiPicker(emoji =>
+          State.showRatingPicker(rating =>
             Voby.Observable.update(
               props.ratings,
-              ratings => Ratings.setRating(ratings, props.band.id, emoji),
+              ratings => Ratings.setRating(ratings, props.band.id, rating),
             )
           )}
       >
         <div class=name> {Voby.JSX.string(props.band.name)} </div>
         <div class=meta> {Voby.JSX.string(timeStr)} </div>
         <div class=meta> {Voby.JSX.string(props.stageName)} </div>
-        <div class=emojiContainer>
-          {switch emoji {
-          | Some(emoji) => <EmojiRenderer emoji />
+        <div class=ratingContainer>
+          {switch rating {
+          | Some(rating) => <RatingRenderer rating />
           | None => Voby.JSX.null
           }}
         </div>
