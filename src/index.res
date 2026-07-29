@@ -19,8 +19,8 @@ module App = {
 
     Voby.Observable.bind(selectedFestival, festival => {
       switch festival {
-      | Some(festival) => <Timetable festival deselectFestival />
-      | None => <Festivals selectFestival />
+      | Some(festival) => <FestivalPage festival deselectFestival />
+      | None => <FestivalsPage selectFestival />
       }
     })
   }

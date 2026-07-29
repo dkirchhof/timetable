@@ -45,6 +45,12 @@ let list = Emotion.css`
 
   background: linear-gradient(var(--border-color), transparent 1px);
   background-size: auto var(--cell-height);
+
+  > li {
+    grid-area: 1/1;
+    translate: 0 calc((var(--start) - var(--timetable-offset)) * var(--cell-height));
+    height: calc((var(--end) - var(--start)) * var(--cell-height));
+  }
 `
 
 let make = props => {

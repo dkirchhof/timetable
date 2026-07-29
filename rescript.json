@@ -17,7 +17,7 @@
     "@rescript/core",
     "rescript-voby"
   ],
-  "flags": [
+  "compiler-flags": [
     "-open RescriptCore"
   ],
   "jsx": {

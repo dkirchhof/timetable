@@ -1,4 +1,6 @@
-type props = {ratingFilter: Voby.Observable.t<RatingFilter.t>}
+type props = {
+  ratingFilter: Voby.Observable.t<RatingFilter.t>,
+}
 
 let make = props => {
   <ul class=SelectorStyles.container>

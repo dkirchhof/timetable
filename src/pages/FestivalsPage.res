@@ -1,4 +1,6 @@
-type props = {selectFestival: Festival.t => unit}
+type props = {
+  selectFestival: Festival.t => unit,
+}
 
 let main = Emotion.css`
   padding: 0.5rem;
@@ -45,7 +47,8 @@ let make = props =>
                 stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                strokeLinejoin="round">
+                strokeLinejoin="round"
+              >
                 <path d="m9 18 6-6-6-6" />
               </svg>
             </button>

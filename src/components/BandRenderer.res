@@ -1,14 +1,13 @@
 type props = {
-  stageName: string,
   band: Band.t,
+  stageName: string,
+  day?: string,
   ratings: Voby.Observable.t<Ratings.t>,
   ratingFilter: Voby.Observable.t<RatingFilter.t>,
 }
 
 let container = Emotion.css`
-  grid-area: 1/1;
-  translate: 0 calc((var(--start) - var(--timetable-offset)) * var(--cell-height));
-  height: calc((var(--end) - var(--start)) * var(--cell-height));
+  position: relative;
 
   background: var(--accent-color);
   box-shadow: 0 0 1rem 0 rgba(0,0,0,.1);
@@ -99,6 +98,12 @@ let make = props => {
           )}
       >
         <div class=name> {Voby.JSX.string(props.band.name)} </div>
+
+        {switch props.day {
+        | Some(day) => <div class=meta> {Voby.JSX.string(day)} </div>
+        | None => Jsx.null
+        }}
+
         <div class=meta> {Voby.JSX.string(timeStr)} </div>
         <div class=meta> {Voby.JSX.string(props.stageName)} </div>
         <div class=ratingContainer>

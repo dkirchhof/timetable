@@ -1,4 +1,7 @@
-type props = {festival: Festival.t, selectedDay: Voby.Observable.t<int>}
+type props = {
+  festival: Festival.t,
+  selectedDay: Voby.Observable.t<int>,
+}
 
 let make = props => {
   <ul class=SelectorStyles.container>
@@ -7,7 +10,8 @@ let make = props => {
       <li>
         <button
           ariaSelected={Voby.Observable.bind(props.selectedDay, selectedDay => i === selectedDay)}
-          onClick={_ => Voby.Observable.update(props.selectedDay, _ => i)}>
+          onClick={_ => Voby.Observable.update(props.selectedDay, _ => i)}
+        >
           {Voby.JSX.string(day.name)}
         </button>
       </li>

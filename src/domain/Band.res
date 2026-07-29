@@ -4,3 +4,9 @@ type t = {
   start: Time.t,
   end: Time.t,
 }
+
+type ex = {
+  ...t,
+  stage: string,
+  day: string,
+}

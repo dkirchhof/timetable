@@ -1,4 +1,6 @@
-type props = {rating: Rating.t}
+type props = {
+  rating: Rating.t,
+}
 
 let container = Emotion.css`
   display: inline-block;

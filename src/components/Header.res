@@ -1,4 +1,7 @@
-type props = {title: string, backButtonCB?: unit => unit}
+type props = {
+  title: string,
+  backButtonCB?: unit => unit,
+}
 
 let shadow = Emotion.keyframes`
   0% { box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 0%); }
@@ -61,7 +64,8 @@ let make = props =>
           stroke="currentColor"
           strokeWidth="1.5"
           strokeLinecap="round"
-          strokeLinejoin="round">
+          strokeLinejoin="round"
+        >
           <path d="m15 18-6-6 6-6" />
         </svg>
       </button>
