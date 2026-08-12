@@ -75,7 +75,7 @@ let make = props => {
 
     let selected = switch rating {
     | Some(rating) => filter->RatingFilter.getRating(rating)
-    | None => true
+    | None => false
     }
 
     let class = `${container} ${selected ? "" : filteredOut}`
