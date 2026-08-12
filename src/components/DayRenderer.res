@@ -11,14 +11,15 @@ let container = Emotion.css`
   gap: 1rem;
 `
 
-let stages = Emotion.css`
+let stages = minWidth =>
+  Emotion.css`
   display: grid;
   grid-auto-flow: column;
 
   overflow-x: auto;
 
   > * {
-    min-width: 30vw;
+    min-width: ${Int.toString(minWidth)}vw;
   }
 `
 
@@ -47,12 +48,15 @@ let make = props => {
       ->Array.map(r => <li> {r->Time.toString->Voby.JSX.string} </li>)
       ->Voby.JSX.array}
     </ul>
-    <div class=stages>
-      {props.day.stages
-      ->Array.mapWithIndex((stage, index) =>
-        <StageRenderer index stage ratings=props.ratings ratingFilter=props.ratingFilter />
-      )
-      ->Voby.JSX.array}
-    </div>
+
+    {Voby.Observable.bind(Zoom.zoom, zoom =>
+      <div class={stages(zoom)}>
+        {props.day.stages
+        ->Array.mapWithIndex((stage, index) =>
+          <StageRenderer index stage ratings=props.ratings ratingFilter=props.ratingFilter />
+        )
+        ->Voby.JSX.array}
+      </div>
+    )}
   </div>
 }

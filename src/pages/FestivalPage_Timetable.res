@@ -9,8 +9,11 @@ let make = props => {
   Voby.Observable.bind(props.selectedDay, selectedDay => {
     let day = Array.getUnsafe(props.festival.days, selectedDay)
 
-    <DayRenderer
-      festival=props.festival day ratings=props.ratings ratingFilter=props.ratingFilter
-    />
+    <>
+      <DayRenderer
+        festival=props.festival day ratings=props.ratings ratingFilter=props.ratingFilter
+      />
+      <Zoom />
+    </>
   })
 }
